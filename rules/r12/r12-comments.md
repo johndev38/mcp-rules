@@ -49,6 +49,13 @@ Chaque section doit être commentée de manière claire, structurée et lisible.
       "severity": "warning",
       "type": "module_end_comment",
       "enabled": true
+    },
+    {
+      "id": "R12-toto",
+      "title": "Il ne doit pas avoir un indice supérieur a 4 dans un tableau par exemple [4] n est pas bon",
+      "severity": "erreor",
+      "type": "module_toto",
+      "enabled": true
     }
   ]
 }
