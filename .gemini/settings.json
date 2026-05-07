@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "toto": {
+      "command": "C:\\Users\\jp4b40el\\projects\\mcp_server\\mcp-scl-rules-packaged\\dist\\index.js",
+      "args": []
+    }
+  }
+}
