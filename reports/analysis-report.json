@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T12:09:16.570Z",
+  "generatedAt": "2026-05-07T12:30:48.854Z",
   "totalFindings": 10,
   "results": [
     {
@@ -117,7 +117,7 @@
           "verification": {
             "status": "confirmed",
             "note": "Le contrôle de seconde passe retrouve un motif cohérent à proximité de la ligne signalée.",
-            "secondPassRule": "excerpt-presence"
+            "secondPassRule": "pattern-nearby"
           }
         },
         {
@@ -133,7 +133,7 @@
           "verification": {
             "status": "confirmed",
             "note": "Le contrôle de seconde passe retrouve un motif cohérent à proximité de la ligne signalée.",
-            "secondPassRule": "excerpt-presence"
+            "secondPassRule": "pattern-nearby"
           }
         },
         {
@@ -149,7 +149,7 @@
           "verification": {
             "status": "confirmed",
             "note": "Le contrôle de seconde passe retrouve un motif cohérent à proximité de la ligne signalée.",
-            "secondPassRule": "excerpt-presence"
+            "secondPassRule": "pattern-nearby"
           }
         }
       ]

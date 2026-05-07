@@ -28,15 +28,14 @@ export function analyzeText(filePath: string, content: string, packs: RulePack[]
   const findings: Finding[] = [];
 
   for (const { rule } of flattenRules(packs)) {
-    findings.push(...runRule(context, rule));
+    const ruleFindings = runRule(context, rule).map((item) => ({
+      ...item,
+      verification: verifyFindingSecondPass(context, rule, item)
+    }));
+    findings.push(...ruleFindings);
   }
 
-  const sortedFindings = findings
-    .sort((a, b) => a.line - b.line || a.column - b.column)
-    .map((item) => ({
-      ...item,
-      verification: verifyFindingSecondPass(context, item)
-    }));
+  const sortedFindings = findings.sort((a, b) => a.line - b.line || a.column - b.column);
 
   return {
     filePath,
@@ -46,6 +45,7 @@ export function analyzeText(filePath: string, content: string, packs: RulePack[]
 
 function verifyFindingSecondPass(
   ctx: Context,
+  rule: RuleDefinition,
   findingItem: Finding
 ): NonNullable<Finding["verification"]> {
   const startLine = Math.max(1, findingItem.line - 2);
@@ -55,15 +55,15 @@ function verifyFindingSecondPass(
     .slice(startLine - 1, endLine)
     .join("\n");
 
-  const ruleChecks: Record<string, RegExp> = {
-    "R12-C7": /\b(?:GOTO|JUMP)\b/i,
-    "CDA-C13": /\b(?:SET|RESET)\b/i,
-    "CDA-C14": /\[[A-Za-z_][\w]*\]/,
-    "CDA-C15": /\b[A-Z_]+\b/
+  const ruleChecksByType: Partial<Record<RuleDefinition["type"], RegExp>> = {
+    forbidden_upstream_jump: /\b(?:GOTO|JUMP)\b/i,
+    forbidden_set_reset: /\b(?:SET|RESET)\b/i,
+    indexed_access_requires_bounds: /\[[A-Za-z_][\w]*\]/,
+    strict_comparators_forbidden: /(?<![<>=:])<(?![=>])|(?<![<>=:])>(?![=>])/
   };
 
-  const defaultCheck = findingItem.excerpt.trim().length > 0;
-  const specificRegex = ruleChecks[findingItem.ruleId];
+  const defaultCheck = findingItem.message.length > 0 && findingItem.excerpt.trim().length > 0;
+  const specificRegex = ruleChecksByType[rule.type];
   const confirmed = specificRegex ? specificRegex.test(localWindow) : defaultCheck;
 
   if (confirmed) {
