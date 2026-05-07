@@ -31,9 +31,53 @@ export function analyzeText(filePath: string, content: string, packs: RulePack[]
     findings.push(...runRule(context, rule));
   }
 
+  const sortedFindings = findings
+    .sort((a, b) => a.line - b.line || a.column - b.column)
+    .map((item) => ({
+      ...item,
+      verification: verifyFindingSecondPass(context, item)
+    }));
+
   return {
     filePath,
-    findings: findings.sort((a, b) => a.line - b.line || a.column - b.column)
+    findings: sortedFindings
+  };
+}
+
+function verifyFindingSecondPass(
+  ctx: Context,
+  findingItem: Finding
+): NonNullable<Finding["verification"]> {
+  const startLine = Math.max(1, findingItem.line - 2);
+  const endLine = findingItem.line + 2;
+  const localWindow = ctx.content
+    .split(/\r?\n/)
+    .slice(startLine - 1, endLine)
+    .join("\n");
+
+  const ruleChecks: Record<string, RegExp> = {
+    "R12-C7": /\b(?:GOTO|JUMP)\b/i,
+    "CDA-C13": /\b(?:SET|RESET)\b/i,
+    "CDA-C14": /\[[A-Za-z_][\w]*\]/,
+    "CDA-C15": /\b[A-Z_]+\b/
+  };
+
+  const defaultCheck = findingItem.excerpt.trim().length > 0;
+  const specificRegex = ruleChecks[findingItem.ruleId];
+  const confirmed = specificRegex ? specificRegex.test(localWindow) : defaultCheck;
+
+  if (confirmed) {
+    return {
+      status: "confirmed",
+      note: "Le contrôle de seconde passe retrouve un motif cohérent à proximité de la ligne signalée.",
+      secondPassRule: specificRegex ? "pattern-nearby" : "excerpt-presence"
+    };
+  }
+
+  return {
+    status: "potential_false_positive",
+    note: "La seconde passe ne retrouve pas le motif attendu localement ; vérifier manuellement.",
+    secondPassRule: specificRegex ? "pattern-nearby" : "excerpt-presence"
   };
 }
 
