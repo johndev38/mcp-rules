@@ -1,0 +1,200 @@
+{
+  "generatedAt": "2026-05-07T13:14:54.270Z",
+  "totalFindings": 10,
+  "results": [
+    {
+      "filePath": "/workspace/mcp-rules/samples/10_SYSTEME.scl.txt",
+      "findings": [
+        {
+          "ruleId": "R5",
+          "title": "Variable d'activation pour blocs d'entrée, sortie et forçage",
+          "severity": "warning",
+          "message": "Aucun IF/THEN d'activation clair détecté pour conditionner la logique principale.",
+          "filePath": "/workspace/mcp-rules/samples/10_SYSTEME.scl.txt",
+          "line": 7,
+          "column": 1,
+          "excerpt": "BEGIN",
+          "confidence": "low",
+          "verification": {
+            "status": "confirmed",
+            "note": "Le contrôle de seconde passe retrouve un motif cohérent à proximité de la ligne signalée.",
+            "secondPassRule": "excerpt-presence"
+          }
+        }
+      ]
+    },
+    {
+      "filePath": "/workspace/mcp-rules/samples/10_SYSTEME_01_ACTIV.scl.txt",
+      "findings": [
+        {
+          "ruleId": "R4",
+          "title": "Commentaire du module type dans le bloc d'appel",
+          "severity": "warning",
+          "message": "Le bloc d'appel du module type doit contenir le commentaire du module type.",
+          "filePath": "/workspace/mcp-rules/samples/10_SYSTEME_01_ACTIV.scl.txt",
+          "line": 4,
+          "column": 1,
+          "excerpt": "BEGIN",
+          "confidence": "medium",
+          "verification": {
+            "status": "confirmed",
+            "note": "Le contrôle de seconde passe retrouve un motif cohérent à proximité de la ligne signalée.",
+            "secondPassRule": "excerpt-presence"
+          }
+        },
+        {
+          "ruleId": "R5",
+          "title": "Variable d'activation pour blocs d'entrée, sortie et forçage",
+          "severity": "warning",
+          "message": "Aucun IF/THEN d'activation clair détecté pour conditionner la logique principale.",
+          "filePath": "/workspace/mcp-rules/samples/10_SYSTEME_01_ACTIV.scl.txt",
+          "line": 4,
+          "column": 1,
+          "excerpt": "BEGIN",
+          "confidence": "low",
+          "verification": {
+            "status": "confirmed",
+            "note": "Le contrôle de seconde passe retrouve un motif cohérent à proximité de la ligne signalée.",
+            "secondPassRule": "excerpt-presence"
+          }
+        }
+      ]
+    },
+    {
+      "filePath": "/workspace/mcp-rules/samples/10_SYSTEME_02_PARAM.scl.txt",
+      "findings": []
+    },
+    {
+      "filePath": "/workspace/mcp-rules/samples/10_SYSTEME_03_INIT.scl.txt",
+      "findings": [
+        {
+          "ruleId": "R5",
+          "title": "Variable d'activation pour blocs d'entrée, sortie et forçage",
+          "severity": "warning",
+          "message": "Aucun IF/THEN d'activation clair détecté pour conditionner la logique principale.",
+          "filePath": "/workspace/mcp-rules/samples/10_SYSTEME_03_INIT.scl.txt",
+          "line": 9,
+          "column": 1,
+          "excerpt": "BEGIN",
+          "confidence": "low",
+          "verification": {
+            "status": "confirmed",
+            "note": "Le contrôle de seconde passe retrouve un motif cohérent à proximité de la ligne signalée.",
+            "secondPassRule": "excerpt-presence"
+          }
+        },
+        {
+          "ruleId": "R12-LINE-COMMENTS",
+          "title": "Commentaires sur logique complexe",
+          "severity": "info",
+          "message": "Logique non triviale sans commentaire proche.",
+          "filePath": "/workspace/mcp-rules/samples/10_SYSTEME_03_INIT.scl.txt",
+          "line": 50,
+          "column": 1,
+          "excerpt": "IF \"SYS\".Perte_contexte THEN",
+          "confidence": "low",
+          "verification": {
+            "status": "confirmed",
+            "note": "Le contrôle de seconde passe retrouve un motif cohérent à proximité de la ligne signalée.",
+            "secondPassRule": "excerpt-presence"
+          }
+        }
+      ]
+    },
+    {
+      "filePath": "/workspace/mcp-rules/samples/10_SYSTEME_08_GESTION_CHAUFFAGE.scl.txt",
+      "findings": [
+        {
+          "ruleId": "R12-COMPARATORS",
+          "title": "Pas de comparateurs stricts < ou >",
+          "severity": "error",
+          "message": "Utiliser <= ou >=, pas < ou > seuls.",
+          "filePath": "/workspace/mcp-rules/samples/10_SYSTEME_08_GESTION_CHAUFFAGE.scl.txt",
+          "line": 25,
+          "column": 21,
+          "excerpt": "Q > #sDfExtMsTmpArm);",
+          "confidence": "high",
+          "verification": {
+            "status": "confirmed",
+            "note": "Le contrôle de seconde passe retrouve un motif cohérent à proximité de la ligne signalée.",
+            "secondPassRule": "pattern-nearby"
+          }
+        },
+        {
+          "ruleId": "R12-COMPARATORS",
+          "title": "Pas de comparateurs stricts < ou >",
+          "severity": "error",
+          "message": "Utiliser <= ou >=, pas < ou > seuls.",
+          "filePath": "/workspace/mcp-rules/samples/10_SYSTEME_08_GESTION_CHAUFFAGE.scl.txt",
+          "line": 49,
+          "column": 49,
+          "excerpt": "\"EC\".ssOrdAcChfArm := ((\"SPRV\".EC_mMsFinTmpArm < \"EC\".mSeAcChfArm) // Activation si franchissement de seuil",
+          "confidence": "high",
+          "verification": {
+            "status": "confirmed",
+            "note": "Le contrôle de seconde passe retrouve un motif cohérent à proximité de la ligne signalée.",
+            "secondPassRule": "pattern-nearby"
+          }
+        },
+        {
+          "ruleId": "R12-COMPARATORS",
+          "title": "Pas de comparateurs stricts < ou >",
+          "severity": "error",
+          "message": "Utiliser <= ou >=, pas < ou > seuls.",
+          "filePath": "/workspace/mcp-rules/samples/10_SYSTEME_08_GESTION_CHAUFFAGE.scl.txt",
+          "line": 50,
+          "column": 52,
+          "excerpt": "OR (\"EC\".ssOrdAcChfArm AND \"SPRV\".EC_mMsFinTmpArm < (\"EC\".mSeAcChfArm + \"EC\".mHysNAcChfArm))) // Maintien avec l'hystérésis",
+          "confidence": "high",
+          "verification": {
+            "status": "confirmed",
+            "note": "Le contrôle de seconde passe retrouve un motif cohérent à proximité de la ligne signalée.",
+            "secondPassRule": "pattern-nearby"
+          }
+        }
+      ]
+    },
+    {
+      "filePath": "/workspace/mcp-rules/samples/CONF_MATERIEL.scl.txt",
+      "findings": [
+        {
+          "ruleId": "R12-LINE-COMMENTS",
+          "title": "Commentaires sur logique complexe",
+          "severity": "info",
+          "message": "Logique non triviale sans commentaire proche.",
+          "filePath": "/workspace/mcp-rules/samples/CONF_MATERIEL.scl.txt",
+          "line": 11,
+          "column": 1,
+          "excerpt": "IF \"SYS\".Premier_cycle THEN",
+          "confidence": "low",
+          "verification": {
+            "status": "confirmed",
+            "note": "Le contrôle de seconde passe retrouve un motif cohérent à proximité de la ligne signalée.",
+            "secondPassRule": "excerpt-presence"
+          }
+        }
+      ]
+    },
+    {
+      "filePath": "/workspace/mcp-rules/samples/DEFAUTS_CARTES.scl.txt",
+      "findings": [
+        {
+          "ruleId": "R5",
+          "title": "Variable d'activation pour blocs d'entrée, sortie et forçage",
+          "severity": "warning",
+          "message": "Aucun IF/THEN d'activation clair détecté pour conditionner la logique principale.",
+          "filePath": "/workspace/mcp-rules/samples/DEFAUTS_CARTES.scl.txt",
+          "line": 5,
+          "column": 1,
+          "excerpt": "BEGIN",
+          "confidence": "low",
+          "verification": {
+            "status": "confirmed",
+            "note": "Le contrôle de seconde passe retrouve un motif cohérent à proximité de la ligne signalée.",
+            "secondPassRule": "excerpt-presence"
+          }
+        }
+      ]
+    }
+  ]
+}
