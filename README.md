@@ -82,3 +82,7 @@ Créer un fichier `.md` dans `rules/mon-dossier/ma-regle.md` avec un bloc JSON :
 ````
 
 Les règles `.rules.json` sont aussi chargées directement.
+
+Types personnalisés supportés pour prototypage rapide :
+- `custom_regex_required` : déclenche un finding si le pattern n'est pas trouvé.
+- `custom_regex_forbidden` : déclenche un finding pour chaque match du pattern interdit.

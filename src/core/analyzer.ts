@@ -113,9 +113,46 @@ function runRule(ctx: Context, rule: RuleDefinition): Finding[] {
       return checkForbiddenSetReset(ctx, rule);
     case "forbidden_token":
       return checkForbiddenToken(ctx, rule);
+    case "custom_regex_required":
+      return checkCustomRegexRequired(ctx, rule);
+    case "custom_regex_forbidden":
+      return checkCustomRegexForbidden(ctx, rule);
     default:
       return [finding(ctx, rule, 0, `Type de règle non supporté: ${rule.type}`, "low")];
   }
+}
+
+function checkCustomRegexRequired(ctx: Context, rule: RuleDefinition): Finding[] {
+  const pattern = String(rule.params?.pattern ?? "").trim();
+  if (!pattern) {
+    return [finding(ctx, rule, 0, "Paramètre 'pattern' manquant pour custom_regex_required.", "low")];
+  }
+
+  const flags = String(rule.params?.flags ?? "i");
+  const regex = new RegExp(pattern, flags);
+  const match = regex.exec(ctx.content);
+  if (match) return [];
+
+  return [finding(ctx, rule, 0, `Pattern requis non détecté: /${pattern}/${flags}.`, "medium")];
+}
+
+function checkCustomRegexForbidden(ctx: Context, rule: RuleDefinition): Finding[] {
+  const pattern = String(rule.params?.pattern ?? "").trim();
+  if (!pattern) {
+    return [finding(ctx, rule, 0, "Paramètre 'pattern' manquant pour custom_regex_forbidden.", "low")];
+  }
+
+  const flags = String(rule.params?.flags ?? "gi");
+  const regex = new RegExp(pattern, flags);
+  const findings: Finding[] = [];
+  let match: RegExpExecArray | null;
+
+  while ((match = regex.exec(ctx.content)) !== null) {
+    findings.push(finding(ctx, rule, match.index, `Pattern interdit détecté: /${pattern}/${flags}.`, "high"));
+    if (!regex.global) break;
+  }
+
+  return findings;
 }
 
 function finding(

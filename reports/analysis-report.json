@@ -1,10 +1,26 @@
 {
-  "generatedAt": "2026-05-07T13:14:54.270Z",
-  "totalFindings": 10,
+  "generatedAt": "2026-05-07T13:35:41.581Z",
+  "totalFindings": 17,
   "results": [
     {
       "filePath": "/workspace/mcp-rules/samples/10_SYSTEME.scl.txt",
       "findings": [
+        {
+          "ruleId": "R12-TOTO",
+          "title": "Règle personnalisée R12-TOTO",
+          "severity": "info",
+          "message": "Pattern requis non détecté: /TOTO/i.",
+          "filePath": "/workspace/mcp-rules/samples/10_SYSTEME.scl.txt",
+          "line": 1,
+          "column": 1,
+          "excerpt": "FUNCTION \"10_SYSTEME\" : Void",
+          "confidence": "medium",
+          "verification": {
+            "status": "confirmed",
+            "note": "Le contrôle de seconde passe retrouve un motif cohérent à proximité de la ligne signalée.",
+            "secondPassRule": "excerpt-presence"
+          }
+        },
         {
           "ruleId": "R5",
           "title": "Variable d'activation pour blocs d'entrée, sortie et forçage",
@@ -26,6 +42,22 @@
     {
       "filePath": "/workspace/mcp-rules/samples/10_SYSTEME_01_ACTIV.scl.txt",
       "findings": [
+        {
+          "ruleId": "R12-TOTO",
+          "title": "Règle personnalisée R12-TOTO",
+          "severity": "info",
+          "message": "Pattern requis non détecté: /TOTO/i.",
+          "filePath": "/workspace/mcp-rules/samples/10_SYSTEME_01_ACTIV.scl.txt",
+          "line": 1,
+          "column": 1,
+          "excerpt": "FUNCTION \"10_SYSTEME_01_ACTIV\" : Void",
+          "confidence": "medium",
+          "verification": {
+            "status": "confirmed",
+            "note": "Le contrôle de seconde passe retrouve un motif cohérent à proximité de la ligne signalée.",
+            "secondPassRule": "excerpt-presence"
+          }
+        },
         {
           "ruleId": "R4",
           "title": "Commentaire du module type dans le bloc d'appel",
@@ -62,11 +94,44 @@
     },
     {
       "filePath": "/workspace/mcp-rules/samples/10_SYSTEME_02_PARAM.scl.txt",
-      "findings": []
+      "findings": [
+        {
+          "ruleId": "R12-TOTO",
+          "title": "Règle personnalisée R12-TOTO",
+          "severity": "info",
+          "message": "Pattern requis non détecté: /TOTO/i.",
+          "filePath": "/workspace/mcp-rules/samples/10_SYSTEME_02_PARAM.scl.txt",
+          "line": 1,
+          "column": 1,
+          "excerpt": "FUNCTION \"10_SYSTEME_02_PARAM\" : Void",
+          "confidence": "medium",
+          "verification": {
+            "status": "confirmed",
+            "note": "Le contrôle de seconde passe retrouve un motif cohérent à proximité de la ligne signalée.",
+            "secondPassRule": "excerpt-presence"
+          }
+        }
+      ]
     },
     {
       "filePath": "/workspace/mcp-rules/samples/10_SYSTEME_03_INIT.scl.txt",
       "findings": [
+        {
+          "ruleId": "R12-TOTO",
+          "title": "Règle personnalisée R12-TOTO",
+          "severity": "info",
+          "message": "Pattern requis non détecté: /TOTO/i.",
+          "filePath": "/workspace/mcp-rules/samples/10_SYSTEME_03_INIT.scl.txt",
+          "line": 1,
+          "column": 1,
+          "excerpt": "FUNCTION_BLOCK \"10_SYSTEME_03_INIT\"",
+          "confidence": "medium",
+          "verification": {
+            "status": "confirmed",
+            "note": "Le contrôle de seconde passe retrouve un motif cohérent à proximité de la ligne signalée.",
+            "secondPassRule": "excerpt-presence"
+          }
+        },
         {
           "ruleId": "R5",
           "title": "Variable d'activation pour blocs d'entrée, sortie et forçage",
@@ -104,6 +169,22 @@
     {
       "filePath": "/workspace/mcp-rules/samples/10_SYSTEME_08_GESTION_CHAUFFAGE.scl.txt",
       "findings": [
+        {
+          "ruleId": "R12-TOTO",
+          "title": "Règle personnalisée R12-TOTO",
+          "severity": "info",
+          "message": "Pattern requis non détecté: /TOTO/i.",
+          "filePath": "/workspace/mcp-rules/samples/10_SYSTEME_08_GESTION_CHAUFFAGE.scl.txt",
+          "line": 1,
+          "column": 1,
+          "excerpt": "FUNCTION_BLOCK \"10_SYSTEME_08_GESTION_CHAUFFAGE\"",
+          "confidence": "medium",
+          "verification": {
+            "status": "confirmed",
+            "note": "Le contrôle de seconde passe retrouve un motif cohérent à proximité de la ligne signalée.",
+            "secondPassRule": "excerpt-presence"
+          }
+        },
         {
           "ruleId": "R12-COMPARATORS",
           "title": "Pas de comparateurs stricts < ou >",
@@ -158,6 +239,22 @@
       "filePath": "/workspace/mcp-rules/samples/CONF_MATERIEL.scl.txt",
       "findings": [
         {
+          "ruleId": "R12-TOTO",
+          "title": "Règle personnalisée R12-TOTO",
+          "severity": "info",
+          "message": "Pattern requis non détecté: /TOTO/i.",
+          "filePath": "/workspace/mcp-rules/samples/CONF_MATERIEL.scl.txt",
+          "line": 1,
+          "column": 1,
+          "excerpt": "FUNCTION \"CONF_MATERIEL\" : Void",
+          "confidence": "medium",
+          "verification": {
+            "status": "confirmed",
+            "note": "Le contrôle de seconde passe retrouve un motif cohérent à proximité de la ligne signalée.",
+            "secondPassRule": "excerpt-presence"
+          }
+        },
+        {
           "ruleId": "R12-LINE-COMMENTS",
           "title": "Commentaires sur logique complexe",
           "severity": "info",
@@ -178,6 +275,22 @@
     {
       "filePath": "/workspace/mcp-rules/samples/DEFAUTS_CARTES.scl.txt",
       "findings": [
+        {
+          "ruleId": "R12-TOTO",
+          "title": "Règle personnalisée R12-TOTO",
+          "severity": "info",
+          "message": "Pattern requis non détecté: /TOTO/i.",
+          "filePath": "/workspace/mcp-rules/samples/DEFAUTS_CARTES.scl.txt",
+          "line": 1,
+          "column": 1,
+          "excerpt": "FUNCTION \"DEFAUTS_CARTES\" : Void",
+          "confidence": "medium",
+          "verification": {
+            "status": "confirmed",
+            "note": "Le contrôle de seconde passe retrouve un motif cohérent à proximité de la ligne signalée.",
+            "secondPassRule": "excerpt-presence"
+          }
+        },
         {
           "ruleId": "R5",
           "title": "Variable d'activation pour blocs d'entrée, sortie et forçage",

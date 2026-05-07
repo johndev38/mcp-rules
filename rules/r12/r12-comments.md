@@ -51,11 +51,16 @@ Chaque section doit être commentée de manière claire, structurée et lisible.
       "enabled": true
     },
     {
-      "id": "R12-toto",
-      "title": "Il ne doit pas avoir un indice supérieur a 4 dans un tableau par exemple [4] n est pas bon",
-      "severity": "erreor",
-      "type": "module_toto",
-      "enabled": true
+      "id": "R12-TOTO",
+      "title": "Règle personnalisée R12-TOTO",
+      "description": "Exemple de règle personnalisée par regex.",
+      "severity": "info",
+      "type": "custom_regex_required",
+      "enabled": true,
+      "params": {
+        "pattern": "TOTO",
+        "flags": "i"
+      }
     }
   ]
 }
