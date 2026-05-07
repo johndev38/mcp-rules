@@ -27,6 +27,7 @@ ou :
 ```bash
 node dist/cli.js analyze --input /chemin/vers/scl --rules rules --format markdown
 node dist/cli.js analyze --input /chemin/vers/scl --rules rules --format json
+node dist/cli.js analyze --input /chemin/vers/scl --rules rules --format json --output reports/analysis-report.json
 ```
 
 Le rapport JSON inclut une section `verification` sur chaque finding : une seconde passe automatique tente de confirmer le signalement ou de le marquer comme `potential_false_positive`.
