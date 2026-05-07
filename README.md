@@ -29,6 +29,8 @@ node dist/cli.js analyze --input /chemin/vers/scl --rules rules --format markdow
 node dist/cli.js analyze --input /chemin/vers/scl --rules rules --format json
 ```
 
+Le rapport JSON inclut une section `verification` sur chaque finding : une seconde passe automatique tente de confirmer le signalement ou de le marquer comme `potential_false_positive`.
+
 ## Validation des règles
 
 ```bash
