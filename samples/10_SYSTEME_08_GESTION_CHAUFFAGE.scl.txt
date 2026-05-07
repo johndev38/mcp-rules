@@ -1,0 +1,58 @@
+FUNCTION_BLOCK "10_SYSTEME_08_GESTION_CHAUFFAGE"
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR 
+      sDfExtMsTmpArm : Bool;
+      Acq_Ms_Tmp_Arm : "Acq_Mes";
+      TOF_DfExtTmpArm {InstructionName := 'TOF_TIME'; LibVersion := '1.0'} : TOF_TIME;
+   END_VAR
+
+
+BEGIN
+	(* ########## MODULE FONCTIONNEL SYSTEME
+	
+	VARIANTE 1 : VARIANTE UNIQUE
+	
+	GESTION CHAUFFAGE ARMOIRE *)
+	(*
+	
+	(*/======*=== MESURE TEMPERATURE ARMOIRE*)
+	(* Elaboration du défaut externe *)
+	#TOF_DfExtTmpArm(IN := "EC".sDfCteAPP_1_17
+	                 OR "EC".sMsTmpArmPtV
+	                 OR NOT "EC".seXAPrsU24,
+	                 PT := t#5s,
+	                 Q > #sDfExtMsTmpArm);
+	
+	(* Acquisition mesure de température armoire *)
+	#Acq_Ms_Tmp_Arm(Activ:="EC".sTpCapVl,
+	                Top_sec:="SYS".top_sec,
+	                Premier_cycle:="SYS".Premier_cycle,
+	                Val_invalide:="SYS".Valeur_invalide,
+	                Mes_int:="SPRV".EC_meMsTmpArmPt,
+	                Df_ext:=#sDfExtMsTmpArm,
+	                Acq_def:="EC".sDblLocDf OR "EC".sDblDistDf,
+	                Mes_fin=>"SPRV".EC_mMsFinTmpArm,
+	                Mes_fin_def=>"SPRV".EC_mMsTmpArm,
+	                Mes_av_trait=>"SPRV".EC_mMsAvtTrtTmpArm,
+	                Def_ext=>"EC".sDfExtMsTmpArm,
+	                Def_lim=>"EC".sDfLimMsTmpArm,
+	                Def_grad=>"EC".sDfGdMsTmpArm,
+	                Def_invariance=>"EC".sDfIvrMsTmpArm,
+	                Mes_init=>"EC".sAcqMsTmpArmIni);
+	
+	(* Invalidité mesure température armoire *)
+	"EC".sIvMsTmpArm := #Acq_Ms_Tmp_Arm.Mes_inv OR NOT "EC".sAcqMsTmpArmIni;
+	
+	
+	(*========== ACTIVATION CHAUFFAGE ARMOIRE*)
+	"EC".ssOrdAcChfArm := (("SPRV".EC_mMsFinTmpArm < "EC".mSeAcChfArm) // Activation si franchissement de seuil
+	OR ("EC".ssOrdAcChfArm AND "SPRV".EC_mMsFinTmpArm < ("EC".mSeAcChfArm + "EC".mHysNAcChfArm))) // Maintien avec l'hystérésis
+	AND NOT "EC".sIvMsTmpArm; //Désactivation si invalidité
+	
+	
+	(*########## FIN *)
+	
+ automatically inserted *)
+END_FUNCTION_BLOCK
+

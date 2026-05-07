@@ -1,0 +1,98 @@
+FUNCTION_BLOCK "10_SYSTEME_03_INIT"
+{ S7_Optimized_Access := 'TRUE' }
+   VAR 
+      FB_TOP_HORAIRES : "Top_Horaire";   // Elaboration des tops horaires (sec, jour, mois, année)
+      TON_InitCaptOk {InstructionName := 'TON_TIME'; LibVersion := '1.0'} : TON_TIME;   // Temporisation pour iniitialisation des capteurs
+   END_VAR
+
+
+BEGIN
+	(* ########## INITIALISATION DE L'AUTOMATE *)
+	
+	(* BIT D'ACTIVATION SORTIE "CHIEN DE GARDE" *)
+	"EC".ssXAOrdRlCdgAPP := TRUE;
+	
+	(*========== ELABORATION DES INITIALISATIONS *)
+	(* RAZ perte contexte et initialisation *)
+	"SYS".Perte_contexte := FALSE;
+	"SYS".Initialisation := FALSE;
+	
+	(* Elaboration valeur perte contexte *)
+	IF "SYS".Valeur_Per_contxt <> 4321 THEN
+	    "SYS".Perte_contexte := TRUE;
+	    "SYS".Valeur_Per_contxt := 4321;
+	END_IF;
+	
+	(*---------- Surveillance paramètres de la CE *)
+	IF "EC_am".mNbEvtCsgSA = 0 THEN
+	    "EC_am".Forc_Init_Param_CE := TRUE;
+	END_IF;
+	
+	(*---------- Initialisation des paramètres de la CE
+	   "SYS".Forc_Init_CE initialise :
+	    - le paramétrage des évènements CE *)
+	"EC_am".Initialisation_CE := "EC_am".Forc_Init_Param_CE;
+	"EC_am".Forc_Init_Param_CE := FALSE;
+	
+	(*---------- Initialisation des paramètres
+	   "SYS".Forc_Init_Param initialise :
+	    - les modules standards paramètres *)
+	"SYS".Initialisation := "SYS".Forc_Init_Param;
+	"SYS".Forc_Init_Param := FALSE;
+	
+	(*---------- Initialisation complète de l'automate
+	   "SYS".Perte_contexte et "SYS".Initialisation initialisent :
+	    - le paramétrage des évènements CE,
+	    - les modules standards paramètres et CE
+	    - les modules standards TVC
+	    - les modules standards "Modbus_Serveur"
+	    - le module standard "Top_Horaire" *)
+	IF "SYS".Perte_contexte THEN
+	    "SYS".Initialisation := TRUE;
+	    "EC_am".Initialisation_CE := TRUE;
+	END_IF;
+	
+	(* ==================== INITIALISATIONS SUR REDEMARRAGE DE L'API *)
+	(* Temporisation pour activation des filtres et acquisitions des capteurs *)
+	#TON_InitCaptOk(IN := NOT "Premier_cycle" AND NOT "SYS".Initialisation,
+	                PT := t#10s,
+	                Q => "EC".sTpCapVl);
+	
+	(* Recopie du bit premier cycle dans le DB système *)
+	"SYS".Premier_cycle := "Premier_cycle";
+	
+	(* ==================== ELABORATION DE LA VALEUR INVALIDE *)
+	"SYS".Valeur_invalide := DWORD_TO_REAL(16#0000_FFFF);
+	
+	(* ==================== GESTION DES TOPS HORAIRES *)
+	#FB_TOP_HORAIRES(Activ := TRUE,
+	                 Bit_sec := "Bit_1s",
+	                 Perte_contexte := "SYS".Perte_contexte,
+	                 Top_sec => "SYS".top_sec,
+	                 Top_minute => "SYS".top_minute,
+	                 Top_jour => "SYS".top_jour,
+	                 Top_mois => "SYS".top_mois,
+	                 Top_annee => "SYS".top_annee);
+	
+	(* ==================== INITIALISATION DES PARAMETRES D'ACCES MEMOIRE AUX BUFFERS BAL DISPONIBLES *)
+	(* ---------- Paramétrage de l'adresse d'accès de la 1ère zone mémoire Buffer BAL *)
+	(* Localisation mémoire du Buffer BAL 1 (0 : Zone Mémentos | Sup. à 0 : Numéro de DB) *)
+	"BAL".BAL1.ZoMm_BuffBal := 204;
+	(* Adresse du 1er mot du Buffer BAL 1 dans la zone mémoire définie *)
+	"BAL".BAL1.AdrPmMot_BuffBal := 824;
+	
+	(* ---------- Paramétrage de l'adresse d'accès de la 2ème zone mémoire Buffer BAL *)
+	(* Localisation mémoire du Buffer "BAL" 2 (0 : Zone Mémentos | Sup. à 0 : Numéro de DB) *)
+	"BAL".BAL2.ZoMm_BuffBal := 204;
+	(* Adresse du 1er mot du Buffer BAL 1 dans la zone mémoire définie *)
+	"BAL".BAL2.AdrPmMot_BuffBal := 1064;
+	
+	(* ---------- Paramétrage de l'adresse d'accès de la 3ème zone mémoire Buffer BAL *)
+	(*Localisation mémoire du Buffer "BAL" 3 (0 : Zone Mémentos | Sup. à 0 : Numéro de DB) *)
+	"BAL".BAL3.ZoMm_BuffBal := 204;
+	(* Adresse du 1er mot du Buffer BAL 1 dans la zone mémoire définie *)
+	"BAL".BAL3.AdrPmMot_BuffBal := 1304;
+	
+	(* ######################### FIN *)
+END_FUNCTION_BLOCK
+

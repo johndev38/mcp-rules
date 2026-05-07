@@ -1,0 +1,63 @@
+{
+  "id": "cda-coding-json",
+  "title": "Règles de Codage CDA Vérifiables - JSON",
+  "version": "1.0.0",
+  "rules": [
+    {
+      "id": "R2-json",
+      "title": "Pas de saut amont",
+      "severity": "error",
+      "type": "forbidden_upstream_jump",
+      "enabled": true
+    },
+    {
+      "id": "R4-json",
+      "title": "Commentaire du module type dans le bloc d'appel",
+      "severity": "warning",
+      "type": "module_type_comment_in_call_block",
+      "enabled": false
+    },
+    {
+      "id": "R5-json",
+      "title": "Variable d'activation",
+      "severity": "warning",
+      "type": "activation_guard",
+      "enabled": false
+    },
+    {
+      "id": "R6-json",
+      "title": "Bloc localisé dans un module fonctionnel",
+      "severity": "info",
+      "type": "module_localization_naming",
+      "enabled": false
+    },
+    {
+      "id": "R13-json",
+      "title": "Indentation et instruction par ligne",
+      "severity": "warning",
+      "type": "indentation_and_one_instruction_per_line",
+      "enabled": false
+    },
+    {
+      "id": "R18-json",
+      "title": "Instance DB unique",
+      "severity": "error",
+      "type": "single_fb_instance_call",
+      "enabled": false
+    },
+    {
+      "id": "P4-json",
+      "title": "Accès indexé borné",
+      "severity": "warning",
+      "type": "indexed_access_requires_bounds",
+      "enabled": false
+    },
+    {
+      "id": "P9-json",
+      "title": "Pas de SET/RESET",
+      "severity": "warning",
+      "type": "forbidden_set_reset",
+      "enabled": false
+    }
+  ]
+}

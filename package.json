@@ -1,0 +1,28 @@
+{
+  "name": "mcp-scl-rules",
+  "version": "2.1.0",
+  "description": "Serveur MCP pour analyser des fichiers SCL TIA Portal avec r\u00e8gles R12/CDA extensibles.",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-scl-rules": "dist/index.js",
+    "scl-rules-cli": "dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "analyze:samples": "node dist/cli.js analyze --input samples --rules rules --format markdown",
+    "validate:rules": "node dist/cli.js validate --rules rules"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.13.0",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.30",
+    "typescript": "^5.8.3"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

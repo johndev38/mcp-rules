@@ -1,0 +1,15 @@
+FUNCTION "10_SYSTEME_01_ACTIV" : Void
+{ S7_Optimized_Access := 'TRUE' }
+
+BEGIN
+	(* ######################### ACTIVATION DES DIFFERENTES SECTIONS
+	
+	(* ==================== Simulation Entrées/Sorties *)
+	"SYS".Activ_simulation := TRUE;
+	
+	(* ==================== Forcage *)
+	"EC".sCdiAcFoSor := FALSE;
+	
+	(* ######################### FIN *)
+END_FUNCTION
+

@@ -1,0 +1,170 @@
+FUNCTION "CONF_MATERIEL" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+
+BEGIN
+	(* TABLEAU DE LA CONFIGURATION MATERIELLE *)
+	(* DECLARATION PRESENCE CARTE *)
+	(* Date de génération : 2025-12-08-11h13min57s. Version de Genscript utilisée : 1.11 rev 1 D RG5 *)
+	
+	
+	IF "SYS".Premier_cycle THEN
+	 (* CONFIGURATION PRESENCE CARTE 16E_TOR (DI 16xDC24V ST) EMPLACEMENT 2 SUR CPU1514 NUM 0 *)
+	 "DIAG_CARTES".Tab_diag_cartes[0].Appareil := 0;
+	 "DIAG_CARTES".Tab_diag_cartes[0].Carte := 2;
+	 "DIAG_CARTES".Tab_diag_cartes[0].ID := 0;
+	 "DIAG_CARTES".Tab_diag_cartes[0].Df := FALSE;
+	 (* CONFIGURATION PRESENCE CARTE 16E_TOR (DI 16xDC24V ST) EMPLACEMENT 3 SUR CPU1514 NUM 0 *)
+	 "DIAG_CARTES".Tab_diag_cartes[1].Appareil := 0;
+	 "DIAG_CARTES".Tab_diag_cartes[1].Carte := 3;
+	 "DIAG_CARTES".Tab_diag_cartes[1].ID := 0;
+	 "DIAG_CARTES".Tab_diag_cartes[1].Df := FALSE;
+	 (* CONFIGURATION PRESENCE CARTE 16E_TOR (DI 16xDC24V ST) EMPLACEMENT 4 SUR CPU1514 NUM 0 *)
+	 "DIAG_CARTES".Tab_diag_cartes[2].Appareil := 0;
+	 "DIAG_CARTES".Tab_diag_cartes[2].Carte := 4;
+	 "DIAG_CARTES".Tab_diag_cartes[2].ID := 0;
+	 "DIAG_CARTES".Tab_diag_cartes[2].Df := FALSE;
+	 (* CONFIGURATION PRESENCE CARTE 16E_TOR (DI 16xDC24V ST) EMPLACEMENT 5 SUR CPU1514 NUM 0 *)
+	 "DIAG_CARTES".Tab_diag_cartes[3].Appareil := 0;
+	 "DIAG_CARTES".Tab_diag_cartes[3].Carte := 5;
+	 "DIAG_CARTES".Tab_diag_cartes[3].ID := 0;
+	 "DIAG_CARTES".Tab_diag_cartes[3].Df := FALSE;
+	 (* CONFIGURATION PRESENCE CARTE 16S_TOR (DQ 16xDC24V / 0,5A ST) EMPLACEMENT 6 SUR CPU1514 NUM 0 *)
+	 "DIAG_CARTES".Tab_diag_cartes[4].Appareil := 0;
+	 "DIAG_CARTES".Tab_diag_cartes[4].Carte := 6;
+	 "DIAG_CARTES".Tab_diag_cartes[4].ID := 0;
+	 "DIAG_CARTES".Tab_diag_cartes[4].Df := FALSE;
+	 (* CONFIGURATION PRESENCE CARTE 4S_TOR (RQ 4xDC120V / AC230V / 5A NO ST) EMPLACEMENT 7 SUR CPU1514 NUM 0 *)
+	 "DIAG_CARTES".Tab_diag_cartes[5].Appareil := 0;
+	 "DIAG_CARTES".Tab_diag_cartes[5].Carte := 7;
+	 "DIAG_CARTES".Tab_diag_cartes[5].ID := 0;
+	 "DIAG_CARTES".Tab_diag_cartes[5].Df := FALSE;
+	 (* CONFIGURATION PRESENCE CARTE 2S_ANA (AQ 2xU/I HS) EMPLACEMENT 8 SUR CPU1514 NUM 0 *)
+	 "DIAG_CARTES".Tab_diag_cartes[6].Appareil := 0;
+	 "DIAG_CARTES".Tab_diag_cartes[6].Carte := 8;
+	 "DIAG_CARTES".Tab_diag_cartes[6].ID := 0;
+	 "DIAG_CARTES".Tab_diag_cartes[6].Df := FALSE;
+	 (* CONFIGURATION PRESENCE CARTE 16E_TOR (DI 16xDC24V ST) EMPLACEMENT 9 SUR CPU1514 NUM 0 *)
+	 "DIAG_CARTES".Tab_diag_cartes[7].Appareil := 0;
+	 "DIAG_CARTES".Tab_diag_cartes[7].Carte := 9;
+	 "DIAG_CARTES".Tab_diag_cartes[7].ID := 0;
+	 "DIAG_CARTES".Tab_diag_cartes[7].Df := FALSE;
+	 (* CONFIGURATION PRESENCE CARTE 16E_TOR (DI 16xDC24V ST) EMPLACEMENT 10 SUR CPU1514 NUM 0 *)
+	 "DIAG_CARTES".Tab_diag_cartes[8].Appareil := 0;
+	 "DIAG_CARTES".Tab_diag_cartes[8].Carte := 10;
+	 "DIAG_CARTES".Tab_diag_cartes[8].ID := 0;
+	 "DIAG_CARTES".Tab_diag_cartes[8].Df := FALSE;
+	 (* CONFIGURATION PRESENCE CARTE 16E_TOR (DI 16xDC24V ST) EMPLACEMENT 11 SUR CPU1514 NUM 0 *)
+	 "DIAG_CARTES".Tab_diag_cartes[9].Appareil := 0;
+	 "DIAG_CARTES".Tab_diag_cartes[9].Carte := 11;
+	 "DIAG_CARTES".Tab_diag_cartes[9].ID := 0;
+	 "DIAG_CARTES".Tab_diag_cartes[9].Df := FALSE;
+	 (* CONFIGURATION PRESENCE CARTE 16E_TOR (DI 16xDC24V ST) EMPLACEMENT 12 SUR CPU1514 NUM 0 *)
+	 "DIAG_CARTES".Tab_diag_cartes[10].Appareil := 0;
+	 "DIAG_CARTES".Tab_diag_cartes[10].Carte := 12;
+	 "DIAG_CARTES".Tab_diag_cartes[10].ID := 0;
+	 "DIAG_CARTES".Tab_diag_cartes[10].Df := FALSE;
+	 (* CONFIGURATION PRESENCE CARTE 16E_TOR (DI 16xDC24V ST) EMPLACEMENT 13 SUR CPU1514 NUM 0 *)
+	 "DIAG_CARTES".Tab_diag_cartes[11].Appareil := 0;
+	 "DIAG_CARTES".Tab_diag_cartes[11].Carte := 13;
+	 "DIAG_CARTES".Tab_diag_cartes[11].ID := 0;
+	 "DIAG_CARTES".Tab_diag_cartes[11].Df := FALSE;
+	 (* CONFIGURATION PRESENCE CARTE 16S_TOR (DQ 16xDC24V / 0,5A ST) EMPLACEMENT 14 SUR CPU1514 NUM 0 *)
+	 "DIAG_CARTES".Tab_diag_cartes[12].Appareil := 0;
+	 "DIAG_CARTES".Tab_diag_cartes[12].Carte := 14;
+	 "DIAG_CARTES".Tab_diag_cartes[12].ID := 0;
+	 "DIAG_CARTES".Tab_diag_cartes[12].Df := FALSE;
+	 (* CONFIGURATION PRESENCE CARTE 4S_TOR (RQ 4xDC120V / AC230V / 5A NO ST) EMPLACEMENT 15 SUR CPU1514 NUM 0 *)
+	 "DIAG_CARTES".Tab_diag_cartes[13].Appareil := 0;
+	 "DIAG_CARTES".Tab_diag_cartes[13].Carte := 15;
+	 "DIAG_CARTES".Tab_diag_cartes[13].ID := 0;
+	 "DIAG_CARTES".Tab_diag_cartes[13].Df := FALSE;
+	 (* CONFIGURATION PRESENCE CARTE 4S_TOR (RQ 4xDC120V / AC230V / 5A NO ST) EMPLACEMENT 16 SUR CPU1514 NUM 0 *)
+	 "DIAG_CARTES".Tab_diag_cartes[14].Appareil := 0;
+	 "DIAG_CARTES".Tab_diag_cartes[14].Carte := 16;
+	 "DIAG_CARTES".Tab_diag_cartes[14].ID := 0;
+	 "DIAG_CARTES".Tab_diag_cartes[14].Df := FALSE;
+	 (* CONFIGURATION PRESENCE CARTE 2S_ANA (AQ 2xU/I HS) EMPLACEMENT 17 SUR CPU1514 NUM 0 *)
+	 "DIAG_CARTES".Tab_diag_cartes[15].Appareil := 0;
+	 "DIAG_CARTES".Tab_diag_cartes[15].Carte := 17;
+	 "DIAG_CARTES".Tab_diag_cartes[15].ID := 0;
+	 "DIAG_CARTES".Tab_diag_cartes[15].Df := FALSE;
+	 (* CONFIGURATION PRESENCE CARTE 2E_ANA (AI 2xI 2-,4-fils ST) EMPLACEMENT 18 SUR CPU1514 NUM 0 *)
+	 "DIAG_CARTES".Tab_diag_cartes[16].Appareil := 0;
+	 "DIAG_CARTES".Tab_diag_cartes[16].Carte := 18;
+	 "DIAG_CARTES".Tab_diag_cartes[16].ID := 0;
+	 "DIAG_CARTES".Tab_diag_cartes[16].Df := FALSE;
+	 (* CONFIGURATION PRESENCE CARTE 2E_ANA (AI 2xI 2-,4-fils ST) EMPLACEMENT 19 SUR CPU1514 NUM 0 *)
+	 "DIAG_CARTES".Tab_diag_cartes[17].Appareil := 0;
+	 "DIAG_CARTES".Tab_diag_cartes[17].Carte := 19;
+	 "DIAG_CARTES".Tab_diag_cartes[17].ID := 0;
+	 "DIAG_CARTES".Tab_diag_cartes[17].Df := FALSE;
+	 (* CONFIGURATION PRESENCE CARTE 16E_TOR (DI 16xDC24V ST) EMPLACEMENT 20 SUR CPU1514 NUM 0 *)
+	 "DIAG_CARTES".Tab_diag_cartes[18].Appareil := 0;
+	 "DIAG_CARTES".Tab_diag_cartes[18].Carte := 20;
+	 "DIAG_CARTES".Tab_diag_cartes[18].ID := 0;
+	 "DIAG_CARTES".Tab_diag_cartes[18].Df := FALSE;
+	 (* CONFIGURATION PRESENCE CARTE 16E_TOR (DI 16xDC24V ST) EMPLACEMENT 21 SUR CPU1514 NUM 0 *)
+	 "DIAG_CARTES".Tab_diag_cartes[19].Appareil := 0;
+	 "DIAG_CARTES".Tab_diag_cartes[19].Carte := 21;
+	 "DIAG_CARTES".Tab_diag_cartes[19].ID := 0;
+	 "DIAG_CARTES".Tab_diag_cartes[19].Df := FALSE;
+	 (* CONFIGURATION PRESENCE CARTE 16E_TOR (DI 16xDC24V ST) EMPLACEMENT 22 SUR CPU1514 NUM 0 *)
+	 "DIAG_CARTES".Tab_diag_cartes[20].Appareil := 0;
+	 "DIAG_CARTES".Tab_diag_cartes[20].Carte := 22;
+	 "DIAG_CARTES".Tab_diag_cartes[20].ID := 0;
+	 "DIAG_CARTES".Tab_diag_cartes[20].Df := FALSE;
+	 (* CONFIGURATION PRESENCE CARTE 16E_TOR (DI 16xDC24V ST) EMPLACEMENT 23 SUR CPU1514 NUM 0 *)
+	 "DIAG_CARTES".Tab_diag_cartes[21].Appareil := 0;
+	 "DIAG_CARTES".Tab_diag_cartes[21].Carte := 23;
+	 "DIAG_CARTES".Tab_diag_cartes[21].ID := 0;
+	 "DIAG_CARTES".Tab_diag_cartes[21].Df := FALSE;
+	 (* CONFIGURATION PRESENCE CARTE 16E_TOR (DI 16xDC24V ST) EMPLACEMENT 24 SUR CPU1514 NUM 0 *)
+	 "DIAG_CARTES".Tab_diag_cartes[22].Appareil := 0;
+	 "DIAG_CARTES".Tab_diag_cartes[22].Carte := 24;
+	 "DIAG_CARTES".Tab_diag_cartes[22].ID := 0;
+	 "DIAG_CARTES".Tab_diag_cartes[22].Df := FALSE;
+	 (* CONFIGURATION PRESENCE CARTE 16S_TOR (DQ 16xDC24V / 0,5A ST) EMPLACEMENT 25 SUR CPU1514 NUM 0 *)
+	 "DIAG_CARTES".Tab_diag_cartes[23].Appareil := 0;
+	 "DIAG_CARTES".Tab_diag_cartes[23].Carte := 25;
+	 "DIAG_CARTES".Tab_diag_cartes[23].ID := 0;
+	 "DIAG_CARTES".Tab_diag_cartes[23].Df := FALSE;
+	 (* CONFIGURATION PRESENCE CARTE 4S_TOR (RQ 4xDC120V / AC230V / 5A NO ST) EMPLACEMENT 26 SUR CPU1514 NUM 0 *)
+	 "DIAG_CARTES".Tab_diag_cartes[24].Appareil := 0;
+	 "DIAG_CARTES".Tab_diag_cartes[24].Carte := 26;
+	 "DIAG_CARTES".Tab_diag_cartes[24].ID := 0;
+	 "DIAG_CARTES".Tab_diag_cartes[24].Df := FALSE;
+	 (* CONFIGURATION PRESENCE CARTE 4S_TOR (RQ 4xDC120V / AC230V / 5A NO ST) EMPLACEMENT 27 SUR CPU1514 NUM 0 *)
+	 "DIAG_CARTES".Tab_diag_cartes[25].Appareil := 0;
+	 "DIAG_CARTES".Tab_diag_cartes[25].Carte := 27;
+	 "DIAG_CARTES".Tab_diag_cartes[25].ID := 0;
+	 "DIAG_CARTES".Tab_diag_cartes[25].Df := FALSE;
+	 (* CONFIGURATION PRESENCE CARTE 2S_ANA (AQ 2xU/I HS) EMPLACEMENT 28 SUR CPU1514 NUM 0 *)
+	 "DIAG_CARTES".Tab_diag_cartes[26].Appareil := 0;
+	 "DIAG_CARTES".Tab_diag_cartes[26].Carte := 28;
+	 "DIAG_CARTES".Tab_diag_cartes[26].ID := 0;
+	 "DIAG_CARTES".Tab_diag_cartes[26].Df := FALSE;
+	 (* CONFIGURATION PRESENCE CARTE 2E_ANA (AI 2xI 2-,4-fils ST) EMPLACEMENT 29 SUR CPU1514 NUM 0 *)
+	 "DIAG_CARTES".Tab_diag_cartes[27].Appareil := 0;
+	 "DIAG_CARTES".Tab_diag_cartes[27].Carte := 29;
+	 "DIAG_CARTES".Tab_diag_cartes[27].ID := 0;
+	 "DIAG_CARTES".Tab_diag_cartes[27].Df := FALSE;
+	 (* CONFIGURATION PRESENCE CARTE 2E_ANA (AI 2xI 2-,4-fils ST) EMPLACEMENT 30 SUR CPU1514 NUM 0 *)
+	 "DIAG_CARTES".Tab_diag_cartes[28].Appareil := 0;
+	 "DIAG_CARTES".Tab_diag_cartes[28].Carte := 30;
+	 "DIAG_CARTES".Tab_diag_cartes[28].ID := 0;
+	 "DIAG_CARTES".Tab_diag_cartes[28].Df := FALSE;
+	 (* CONFIGURATION PRESENCE CARTE 2E_ANA (AI 2xI 2-,4-fils ST) EMPLACEMENT 31 SUR CPU1514 NUM 0 *)
+	 "DIAG_CARTES".Tab_diag_cartes[29].Appareil := 0;
+	 "DIAG_CARTES".Tab_diag_cartes[29].Carte := 31;
+	 "DIAG_CARTES".Tab_diag_cartes[29].ID := 0;
+	 "DIAG_CARTES".Tab_diag_cartes[29].Df := FALSE;
+	 (* CONFIGURATION PRESENCE CARTE 2E_ANA (AI 2xI 2-,4-fils ST) EMPLACEMENT 32 SUR CPU1514 NUM 0 *)
+	 "DIAG_CARTES".Tab_diag_cartes[30].Appareil := 0;
+	 "DIAG_CARTES".Tab_diag_cartes[30].Carte := 32;
+	 "DIAG_CARTES".Tab_diag_cartes[30].ID := 0;
+	 "DIAG_CARTES".Tab_diag_cartes[30].Df := FALSE;
+	END_IF;
+	(* #################### FIN *)
+END_FUNCTION
+

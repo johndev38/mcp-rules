@@ -1,0 +1,131 @@
+FUNCTION "10_SYSTEME_02_PARAM" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_TEMP 
+      Val_AcqTmpArm_ValMax : Real;
+      Val_AcqTmpArm_ValIMin : Real;
+      Val_AcqTmpArm_Nb_Pts_Cte_Ana : Real;
+   END_VAR
+
+
+BEGIN
+	(* ########## MODULE TYPE SYSTEME
+	
+	VARIANTE 1 : VARIANTE UNIQUE
+	
+	PARAMETRES, ECHANGE DE TC ET TVC *)
+	
+	
+	(* =========================================== *)
+	(* ========== PARAMETRES MODIFIABLES PAR L'IMR *)
+	
+	(*---------- PARAMETRES D'AUTORISATION DE DEBLOCAGE DES DEFAUTS A DISTANCE *)
+	REGION ADD
+	(* Autorisation déblocage défaut redémarrage automate *)
+	    "R_Param_BOOL"(Activ := TRUE,
+	                   Reinit_Param := "SYS".Initialisation,
+	                   Val_Ini := 0,
+	                   Param_Val_Ini => "SPRV".EC_piADDDfRdmrAP,
+	                   Param_Val := "SPRV".EC_pADDDfRdmrAP,
+	                   Val_Courante := "EC".sDDARdmrAP);
+	END_REGION ;
+	
+	(*---------- PARAMETRES LIAISON SA *)
+	(* Temporisation défaut liaison APP-SA [s] *)
+	"R_Param_TIME"(Activ := TRUE,
+	               Reinit_Param := "SYS".Initialisation,
+	               Val_Ini := T#60S,
+	               Val_Min := T#1S,
+	               Val_Max := T#3600S,
+	               Val_Courante := "EC".mValpTpDfLiAPPSA,
+	               Param_Val_Ini => "SPRV".EC_piTpDfLiAPPSA,
+	               Param_Val_Min => "SPRV".EC_pbTpDfLiAPPSA,
+	               Param_Val_Max => "SPRV".EC_phTpDfLiAPPSA,
+	               Param_Val := "SPRV".EC_pTpDfLiAPPSA);
+	
+	(* Temporisation disparition défaut liaison APP-SA [s] *)
+	"R_Param_TIME"(Activ := TRUE,
+	               Reinit_Param := "SYS".Initialisation,
+	               Val_Ini := t#60s,
+	               Val_Min := t#1s,
+	               Val_Max := t#3600s,
+	               Param_Val := "SPRV".EC_pTpDpDfLiAPPSA,
+	               Val_Courante := "EC".mTpDpDfLiAPPSA,
+	               Param_Val_Ini => "SPRV".EC_piTpDpDfLiAPPSA,
+	               Param_Val_Min => "SPRV".EC_pbTpDpDfLiAPPSA,
+	               Param_Val_Max => "SPRV".EC_phTpDpDfLiAPPSA);
+	
+	
+	(*---------- GESTION CHAUFFAGE *)
+	REGION AcChf  
+	    (* Seuil activation chauffage armoire [°C] *)
+	    "R_Param_REAL"(Activ := TRUE,
+	                   Reinit_Param := "SYS".Initialisation,
+	                   Val_Ini := 10,
+	                   Val_Min := 0,
+	                   Val_Max := 20,
+	                   Param_Val_Ini => "SPRV".EC_piSeAcChfArm,
+	                   Param_Val_Min => "SPRV".EC_pbSeAcChfArm,
+	                   Param_Val_Max => "SPRV".EC_phSeAcChfArm,
+	                   Param_Val := "SPRV".EC_pSeAcChfArm,
+	                   Val_Courante := "EC".mSeAcChfArm);
+	    
+	    (* Hystérésis désactivation chauffage armoire [°C] *)
+	    "R_Param_REAL"(Activ := TRUE,
+	                   Reinit_Param := "SYS".Initialisation,
+	                   Val_Ini := 1,
+	                   Val_Min := 0,
+	                   Val_Max := 5,
+	                   Param_Val_Ini => "SPRV".EC_piHysNAcChfArm,
+	                   Param_Val_Min => "SPRV".EC_pbHysNAcChfArm,
+	                   Param_Val_Max => "SPRV".EC_phHysNAcChfArm,
+	                   Param_Val := "SPRV".EC_pHysNAcChfArm,
+	                   Val_Courante := "EC".mHysNAcChfArm);
+	END_REGION ;
+	
+	
+	(* =============================================== *)
+	(* ========== PARAMETRES NON MODIFIABLES PAR L'IMR *)
+	
+	(* -------------------------------------------------- *)
+	(* ---------- ACQUISITION MESURE TEMPERATURE *)
+	REGION TMPARM
+	    (* Limite haute en °C *)
+	    "10_SYSTEME_08_GESTION_CHAUFFAGE_DB".Acq_Ms_Tmp_Arm.Lim_h := 100;
+	    (* Limite basse en °C *)
+	    "10_SYSTEME_08_GESTION_CHAUFFAGE_DB".Acq_Ms_Tmp_Arm.Lim_b := 0;
+	    (* Variation maximale en °C *)
+	    "10_SYSTEME_08_GESTION_CHAUFFAGE_DB".Acq_Ms_Tmp_Arm.Grad_max := 5;
+	    (* Temporisation défaut d'invariance s *)
+	    "10_SYSTEME_08_GESTION_CHAUFFAGE_DB".Acq_Ms_Tmp_Arm.T_Invariance := t#0s;
+	    (* Seuil d'invariance en °C *)
+	    "10_SYSTEME_08_GESTION_CHAUFFAGE_DB".Acq_Ms_Tmp_Arm.Seuil_invariance := 0.01;
+	    (* Valeur physique pour mesure max PT100 (pour le coefficient de mise à l'échelle) [°C] *)
+	    #Val_AcqTmpArm_ValMax := 100;
+	    (* Valeur physique pour mesure min PT100 (talon pour unité physique) [°C] *)
+	     #Val_AcqTmpArm_ValIMin := 0;
+	    (* Valeur de forçage de l'entrée en °CA *)
+	    "10_SYSTEME_08_GESTION_CHAUFFAGE_DB".Acq_Ms_Tmp_Arm.Val_Fo_Ent := 0;
+	    (* Valeur de forçage de la sortie en °C *)
+	    "10_SYSTEME_08_GESTION_CHAUFFAGE_DB".Acq_Ms_Tmp_Arm.Val_Fo_Sor := 0;
+	    (* Acquittement automatique des défauts *)
+	    "10_SYSTEME_08_GESTION_CHAUFFAGE_DB".Acq_Ms_Tmp_Arm.Acq_auto := FALSE;
+	    (* Type de mesure [FALSE-> INT , TRUE -> REAL] *)
+	    "10_SYSTEME_08_GESTION_CHAUFFAGE_DB".Acq_Ms_Tmp_Arm.Type_mes := FALSE;
+	    (* Période d'acquisition [s] *)
+	    "10_SYSTEME_08_GESTION_CHAUFFAGE_DB".Acq_Ms_Tmp_Arm.T_acq := 1;
+	    (* Talon brut en points codeur *)
+	    "10_SYSTEME_08_GESTION_CHAUFFAGE_DB".Acq_Ms_Tmp_Arm.Talon_brut := 0;
+	    (* Nombre d'acquisitions invalides avant défaut *)
+	    "10_SYSTEME_08_GESTION_CHAUFFAGE_DB".Acq_Ms_Tmp_Arm.Nb_acq := 3;
+	    (* Nombre de points entrée analogique *)
+	    #Val_AcqTmpArm_Nb_Pts_Cte_Ana := 1000;
+	    (* Coefficient de mise à l'échelle *)
+	    "10_SYSTEME_08_GESTION_CHAUFFAGE_DB".Acq_Ms_Tmp_Arm.Coef_ech := (#Val_AcqTmpArm_ValMax - #Val_AcqTmpArm_ValIMin) / #Val_AcqTmpArm_Nb_Pts_Cte_Ana;
+	    
+	END_REGION ;
+	
+	
+	(*########## FIN *)
+END_FUNCTION
+
