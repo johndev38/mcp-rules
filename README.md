@@ -27,7 +27,10 @@ ou :
 ```bash
 node dist/cli.js analyze --input /chemin/vers/scl --rules rules --format markdown
 node dist/cli.js analyze --input /chemin/vers/scl --rules rules --format json
+node dist/cli.js analyze --input /chemin/vers/scl --rules rules --format json --output reports/analysis-report.json
 ```
+
+Le rapport JSON inclut une section `verification` sur chaque finding : une seconde passe automatique tente de confirmer le signalement ou de le marquer comme `potential_false_positive`.
 
 ## Validation des règles
 
@@ -79,3 +82,7 @@ Créer un fichier `.md` dans `rules/mon-dossier/ma-regle.md` avec un bloc JSON :
 ````
 
 Les règles `.rules.json` sont aussi chargées directement.
+
+Types personnalisés supportés pour prototypage rapide :
+- `custom_regex_required` : déclenche un finding si le pattern n'est pas trouvé.
+- `custom_regex_forbidden` : déclenche un finding pour chaque match du pattern interdit.

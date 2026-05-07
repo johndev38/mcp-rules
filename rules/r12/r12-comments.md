@@ -49,6 +49,18 @@ Chaque section doit être commentée de manière claire, structurée et lisible.
       "severity": "warning",
       "type": "module_end_comment",
       "enabled": true
+    },
+    {
+      "id": "R12-TOTO",
+      "title": "Règle personnalisée R12-TOTO",
+      "description": "Exemple de règle personnalisée par regex.",
+      "severity": "info",
+      "type": "custom_regex_required",
+      "enabled": true,
+      "params": {
+        "pattern": "TOTO",
+        "flags": "i"
+      }
     }
   ]
 }

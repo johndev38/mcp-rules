@@ -28,12 +28,56 @@ export function analyzeText(filePath: string, content: string, packs: RulePack[]
   const findings: Finding[] = [];
 
   for (const { rule } of flattenRules(packs)) {
-    findings.push(...runRule(context, rule));
+    const ruleFindings = runRule(context, rule).map((item) => ({
+      ...item,
+      verification: verifyFindingSecondPass(context, rule, item)
+    }));
+    findings.push(...ruleFindings);
   }
+
+  const sortedFindings = findings.sort((a, b) => a.line - b.line || a.column - b.column);
 
   return {
     filePath,
-    findings: findings.sort((a, b) => a.line - b.line || a.column - b.column)
+    findings: sortedFindings
+  };
+}
+
+function verifyFindingSecondPass(
+  ctx: Context,
+  rule: RuleDefinition,
+  findingItem: Finding
+): NonNullable<Finding["verification"]> {
+  const startLine = Math.max(1, findingItem.line - 2);
+  const endLine = findingItem.line + 2;
+  const localWindow = ctx.content
+    .split(/\r?\n/)
+    .slice(startLine - 1, endLine)
+    .join("\n");
+
+  const ruleChecksByType: Partial<Record<RuleDefinition["type"], RegExp>> = {
+    forbidden_upstream_jump: /\b(?:GOTO|JUMP)\b/i,
+    forbidden_set_reset: /\b(?:SET|RESET)\b/i,
+    indexed_access_requires_bounds: /\[[A-Za-z_][\w]*\]/,
+    strict_comparators_forbidden: /(?<![<>=:])<(?![=>])|(?<![<>=:])>(?![=>])/
+  };
+
+  const defaultCheck = findingItem.message.length > 0 && findingItem.excerpt.trim().length > 0;
+  const specificRegex = ruleChecksByType[rule.type];
+  const confirmed = specificRegex ? specificRegex.test(localWindow) : defaultCheck;
+
+  if (confirmed) {
+    return {
+      status: "confirmed",
+      note: "Le contrôle de seconde passe retrouve un motif cohérent à proximité de la ligne signalée.",
+      secondPassRule: specificRegex ? "pattern-nearby" : "excerpt-presence"
+    };
+  }
+
+  return {
+    status: "potential_false_positive",
+    note: "La seconde passe ne retrouve pas le motif attendu localement ; vérifier manuellement.",
+    secondPassRule: specificRegex ? "pattern-nearby" : "excerpt-presence"
   };
 }
 
@@ -69,9 +113,46 @@ function runRule(ctx: Context, rule: RuleDefinition): Finding[] {
       return checkForbiddenSetReset(ctx, rule);
     case "forbidden_token":
       return checkForbiddenToken(ctx, rule);
+    case "custom_regex_required":
+      return checkCustomRegexRequired(ctx, rule);
+    case "custom_regex_forbidden":
+      return checkCustomRegexForbidden(ctx, rule);
     default:
       return [finding(ctx, rule, 0, `Type de règle non supporté: ${rule.type}`, "low")];
   }
+}
+
+function checkCustomRegexRequired(ctx: Context, rule: RuleDefinition): Finding[] {
+  const pattern = String(rule.params?.pattern ?? "").trim();
+  if (!pattern) {
+    return [finding(ctx, rule, 0, "Paramètre 'pattern' manquant pour custom_regex_required.", "low")];
+  }
+
+  const flags = String(rule.params?.flags ?? "i");
+  const regex = new RegExp(pattern, flags);
+  const match = regex.exec(ctx.content);
+  if (match) return [];
+
+  return [finding(ctx, rule, 0, `Pattern requis non détecté: /${pattern}/${flags}.`, "medium")];
+}
+
+function checkCustomRegexForbidden(ctx: Context, rule: RuleDefinition): Finding[] {
+  const pattern = String(rule.params?.pattern ?? "").trim();
+  if (!pattern) {
+    return [finding(ctx, rule, 0, "Paramètre 'pattern' manquant pour custom_regex_forbidden.", "low")];
+  }
+
+  const flags = String(rule.params?.flags ?? "gi");
+  const regex = new RegExp(pattern, flags);
+  const findings: Finding[] = [];
+  let match: RegExpExecArray | null;
+
+  while ((match = regex.exec(ctx.content)) !== null) {
+    findings.push(finding(ctx, rule, match.index, `Pattern interdit détecté: /${pattern}/${flags}.`, "high"));
+    if (!regex.global) break;
+  }
+
+  return findings;
 }
 
 function finding(

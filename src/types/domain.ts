@@ -28,6 +28,11 @@ export interface Finding {
   column: number;
   excerpt: string;
   confidence: "high" | "medium" | "low";
+  verification?: {
+    status: "confirmed" | "potential_false_positive";
+    note: string;
+    secondPassRule: string;
+  };
 }
 
 export interface AnalysisResult {
